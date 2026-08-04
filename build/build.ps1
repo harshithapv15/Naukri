@@ -15,6 +15,9 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
+$env:JAVA_HOME = 'C:\Program Files\Microsoft\jdk-17.0.20.8-hotspot'
+$env:Path = "$env:JAVA_HOME\bin;$env:Path"
+
 Write-Host "==== NaukriAutomator Build (Variant=$Variant) ===="
 
 $phasesDir = Join-Path $PSScriptRoot 'phases'
@@ -28,7 +31,9 @@ function Invoke-Phase {
     } else {
         & $Script
     }
-    if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) { throw "Phase '$Name' failed with exit code $LASTEXITCODE" }
+    if ($LASTEXITCODE -is [int] -and $LASTEXITCODE -ne 0) {
+    throw "Phase '$Name' failed with exit code $LASTEXITCODE"
+    }
     Write-Host ">>> Phase: $Name - OK"
 }
 
