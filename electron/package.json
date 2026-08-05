@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "dev": "electron .",
-    "test": "node --test test/*.test.js",
+    "test": "node --test test/main.spawn.test.js test/preload.contract.test.js",
     "dist": "electron-builder --win nsis portable --config electron-builder.yml"
   },
   "devDependencies": {
